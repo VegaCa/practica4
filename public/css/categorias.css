@@ -1,0 +1,122 @@
+.darkmode-layer{
+    mix-blend-mode: unset !important;
+    background: #121212 !important;
+}
+.darkmode-toggle{
+    z-index: 5;
+}
+.table td, .table th{
+    vertical-align: middle;
+}
+/*----------*/
+.categoria{
+    position: relative;
+}
+.categoria-div{
+    display: flex;
+    height: 100vh;
+}
+/*----------*/
+.categoria-div-sidebar{
+    width: 15%;
+    background-color: rgb(241, 241, 241);
+}
+body.darkmode--activated .categoria-div-sidebar{
+    background-color: black;
+}
+.categoria-div-sidebar-div{
+    padding: 1rem;
+    color: black;
+}
+body.darkmode--activated .categoria-div-sidebar-div{
+    color: white;
+}
+.categoria-div-sidebar-div-int{
+    display: flex;
+    flex-direction: column;
+}
+.categoria-div-sidebar-div-int-a{
+    padding: .5rem;
+    text-decoration: none !important;
+    color: black !important;
+    transition: color .15s ease-in-out;
+}
+body.darkmode--activated .categoria-div-sidebar-div-int-a{
+    color: white !important;
+}
+.categoria-div-sidebar-div-int-a:hover{
+    color: blue !important;
+}
+body.darkmode--activated .categoria-div-sidebar-div-int-a:hover{
+    color: rgb(0, 225, 255) !important;
+}
+.categoria-div-sidebar-div-int-a:nth-of-type(odd){
+    background-color: rgba(0,0,0,.05);
+}
+body.darkmode--activated .categoria-div-sidebar-div-int-a:nth-of-type(odd){
+    background-color: #1d1d1d;
+}
+/*----------*/
+.side-bar-a-activo{
+    color: blue !important;
+}
+body.darkmode--activated .side-bar-a-activo{
+    color: rgb(0, 225, 255) !important;
+}
+/*----------*/
+.categoria-div-contenido{
+    width: 85%;
+}
+.categoria-div-contenido-div{
+    padding: 1rem;
+    color: black;
+}
+body.darkmode--activated .categoria-div-contenido-div{
+    color: white;
+}
+
+body.darkmode--activated table{
+    color: white
+}
+body.darkmode--activated .table-striped tbody tr:nth-of-type(odd){
+    background-color: #1d1d1d;
+}
+body.darkmode--activated .form-control{
+    background-color: black !important;
+    color: white !important;
+}
+
+/* === Form === */
+.form-div{
+    display: flex;
+    gap: 2rem;
+}
+.form-div-int{
+    width: 50%;
+}
+.imagenes-preview{
+    max-width: 120px;
+    max-height: 200px;
+}
+.custom-file{
+    overflow: hidden;
+}
+.form-div-int-img{
+    display: flex;
+    gap: 2rem;
+}
+.form-div-int-img-int{
+    width: 50%;
+}
+.item-activado{
+    color: white !important;
+    padding: 0.25rem;
+    border-radius: .25rem;
+    background-color: green;
+}
+.item-inactivo{
+    color: white !important;
+    padding: 0.25rem;
+    border-radius: .25rem;
+    background-color: rgb(177, 0, 0);
+}

@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+}
+a:-webkit-any-link {
+    color: unset;
+}
+header{
+    position: sticky;
+}
+main{
+    position: relative;
+}
+p, h1, h2, h3, h4, h4, a{
+    margin: 0;
+}
+.darkmode-toggle{
+    z-index: 10;
+}
+.darkmode-layer{
+    mix-blend-mode: unset !important;
+    background: #121212 !important;
+}
+.contenedor{
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+/*====================*/
+@media(max-width: 992px){
+    .contenedor{
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+}
+@media(max-width: 768px){
+    .contenedor{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
