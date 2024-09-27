@@ -125,95 +125,46 @@ class PlantillaController extends Controller
             'descripcion' => 'nullable|string',
         ]);
 
-
+        // Actualizar los campos básicos
         $plantilla->categoria_id = $request->input('categoria_id');
         $plantilla->tipo_catalogo = $request->input('tipo_catalogo');
         $plantilla->titulo = $request->input('titulo');
         $plantilla->slug = Str::slug($request->input('titulo'));
         $plantilla->precio = $request->input('precio');
         $plantilla->numero_vistas = $request->input('numero_vistas');
-    
-
-        // Manejar la imagen principal
-        if ($request->hasFile('imagen_1')) {
-            if (!is_null($plantilla->imagen_1)) {
-                $this->deleteImagen($plantilla->imagen_1);  // Eliminar la imagen antigua
-            }
-            $plantilla->imagen_1 = $this->saveImagen($request->file('imagen_1'));  // Guardar la nueva imagen
-        } elseif ($request->input('imagen_1_actual')) {
-            $plantilla->imagen_1 = $request->input('imagen_1_actual');  // Mantener la imagen actual si no se ha subido una nueva
-        } else {
-            $plantilla->imagen_1 = null;  // Limpiar la imagen si se elimina
-        }
-    
-        // IMAGEN 2
-        if ($request->hasFile('imagen_2')) {
-            if (!is_null($plantilla->imagen_2)) {
-                $this->deleteImagen($plantilla->imagen_2);
-            }
-            $plantilla->imagen_2 = $this->saveImagen($request->file('imagen_2'));
-        } elseif ($request->input('imagen_2_actual')) {
-            $plantilla->imagen_2 = $request->input('imagen_2_actual');
-        } else if ($request->input('imagen2_eliminar') == '1') {
-            if (!is_null($plantilla->imagen_2)) {
-                $this->deleteImagen($plantilla->imagen_2);
-            }
-            $plantilla->imagen_2 = null;
-        }
-
-        // IMAGEN 3
-        if ($request->hasFile('imagen_3')) {
-            if (!is_null($plantilla->imagen_3)) {
-                $this->deleteImagen($plantilla->imagen_3);
-            }
-            $plantilla->imagen_3 = $this->saveImagen($request->file('imagen_3'));
-        } elseif ($request->input('imagen_3_actual')) {
-            $plantilla->imagen_3 = $request->input('imagen_3_actual');
-        } else if ($request->input('imagen3_eliminar') == '1') {
-            if (!is_null($plantilla->imagen_3)) {
-                $this->deleteImagen($plantilla->imagen_3);
-            }
-            $plantilla->imagen_3 = null;
-        }
-
-        // IMAGEN 4
-        if ($request->hasFile('imagen_4')) {
-            if (!is_null($plantilla->imagen_4)) {
-                $this->deleteImagen($plantilla->imagen_4);
-            }
-            $plantilla->imagen_4 = $this->saveImagen($request->file('imagen_4'));
-        } elseif ($request->input('imagen_4_actual')) {
-            $plantilla->imagen_4 = $request->input('imagen_4_actual');
-        } else if ($request->input('imagen4_eliminar') == '1') {
-            if (!is_null($plantilla->imagen_4)) {
-                $this->deleteImagen($plantilla->imagen_4);
-            }
-            $plantilla->imagen_4 = null;
-        }
-
-        // IMAGEN 5
-        if ($request->hasFile('imagen_5')) {
-            if (!is_null($plantilla->imagen_5)) {
-                $this->deleteImagen($plantilla->imagen_5);
-            }
-            $plantilla->imagen_5 = $this->saveImagen($request->file('imagen_5'));
-        } elseif ($request->input('imagen_5_actual')) {
-            $plantilla->imagen_5 = $request->input('imagen_5_actual');
-        } else if ($request->input('imagen5_eliminar') == '1') {
-            if (!is_null($plantilla->imagen_5)) {
-                $this->deleteImagen($plantilla->imagen_5);
-            }
-            $plantilla->imagen_5 = null;
-        }
-    
         $plantilla->enlace = $request->input('enlace');
         $plantilla->descripcion = $request->input('descripcion');
         $plantilla->estado = $request->input('estado');
-    
+
+        // Manejar las imágenes
+        $this->handleImageUpdate($request, $plantilla, 'imagen_1', 'imagen1_eliminar');
+        $this->handleImageUpdate($request, $plantilla, 'imagen_2', 'imagen2_eliminar');
+        $this->handleImageUpdate($request, $plantilla, 'imagen_3', 'imagen3_eliminar');
+        $this->handleImageUpdate($request, $plantilla, 'imagen_4', 'imagen4_eliminar');
+        $this->handleImageUpdate($request, $plantilla, 'imagen_5', 'imagen5_eliminar');
+
         $plantilla->save();
 
         return redirect()->route('plantillas.index')->with('success', 'Plantilla actualizada exitosamente.');
     }
+    /*----------------------*/
+    private function handleImageUpdate(Request $request, Plantilla $plantilla, string $imageField, string $imageDeleteField)
+    {
+        if ($request->hasFile($imageField)) {
+            if (!is_null($plantilla->$imageField)) {
+                $this->deleteImagen($plantilla->$imageField);
+            }
+            $plantilla->$imageField = $this->saveImagen($request->file($imageField));
+        } elseif ($request->input($imageField . '_actual')) {
+            $plantilla->$imageField = $request->input($imageField . '_actual');
+        } elseif ($request->input($imageDeleteField) == '1') {
+            if (!is_null($plantilla->$imageField)) {
+                $this->deleteImagen($plantilla->$imageField);
+            }
+            $plantilla->$imageField = null;
+        }
+    }
+    /*----------------------*/
 
     /**
      * Remove the specified resource from storage.
