@@ -125,7 +125,7 @@ Para reducir la complejidad cognitiva, se aplicaron las siguientes estrategias:
 2. Se redujo la duplicación de código y se mejoró la legibilidad de la función `update()`.
 
 ### Fragmento Refactorizado:
-public function update(Request $request, Plantilla $plantilla)
+    public function update(Request $request, Plantilla $plantilla)
     {
         // Validar los datos de entrada
         $request->validate([
@@ -166,8 +166,8 @@ public function update(Request $request, Plantilla $plantilla)
         return redirect()->route('plantillas.index')->with('success', 'Plantilla actualizada exitosamente.');
     }
 
-## Nuevo Método agregado
-private function handleImageUpdate(Request $request, Plantilla $plantilla, string $imageField, string $imageDeleteField)
+### Nuevo Método agregado
+    private function handleImageUpdate(Request $request, Plantilla $plantilla, string $imageField, string $imageDeleteField)
     {
         if ($request->hasFile($imageField)) {
             if (!is_null($plantilla->$imageField)) {
